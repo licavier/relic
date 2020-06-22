@@ -239,6 +239,21 @@
 /** @} */
 #endif
 
+#if defined(EP_PLAIN) && FP_PRIME == 256
+/**
+ * Parameters for the SM2 P256 prime elliptic curve.
+ */
+/** @{ */
+#define SM2_P256_A		"FFFFFFFEFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF00000000FFFFFFFFFFFFFFFC"
+#define SM2_P256_B		"28E9FA9E9D9F5E344D5A9E4BCF6509A7F39789F515AB8F92DDBCBD414D940E93"
+#define SM2_P256_X		"32C4AE2C1F1981195F9904466A39C9948FE30BBFF2660BE1715A4589334C74C7"
+#define SM2_P256_Y		"BC3736A2F4F6779C59BDCEE36B692153D0A9877CC62A474002DF32E52139F0A0"
+#define SM2_P256_R		"FFFFFFFEFFFFFFFFFFFFFFFFFFFFFFFF7203DF6B21C6052B53BBF40939D54123"
+#define SM2_P256_H		"1"
+#define SM2_P256_MAPU	"-2"	//????
+/** @} */
+#endif
+
 #if defined(EP_ENDOM) && FP_PRIME == 256
 /**
  * Parameters for the SECG K-256 prime elliptic curve.
@@ -850,6 +865,10 @@ void ep_param_set(int param) {
 				ASSIGN(BSI_P256, BSI_256);
 				plain = 1;
 				break;
+			case SM2_P256:
+				ASSIGN(SM2_P256, SM2_P256);
+				plain = 1;
+				break;
 #endif
 #if defined(EP_ENDOM) && FP_PRIME == 256
 			case SECG_K256:
@@ -1279,6 +1298,9 @@ void ep_param_print(void) {
 		case BSI_P256:
 			util_banner("Curve BSI-P256:", 0);
 			break;
+		case SM2_P256:
+			util_banner("Curve SM2_P256:", 0);
+			break;
 		case SECG_K256:
 			util_banner("Curve SECG-K256:", 0);
 			break;
@@ -1372,6 +1394,7 @@ int ep_param_level(void) {
 			return 112;
 		case NIST_P256:
 		case SECG_K256:
+		case SM2_P256:
 		case CURVE_25519:
 			return 128;
 		case B12_P381:

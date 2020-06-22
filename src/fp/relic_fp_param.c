@@ -202,6 +202,15 @@ void fp_param_set(int param) {
 				bn_read_str(p, STR_P256, strlen(STR_P256), 16);
 				fp_prime_set_dense(p);
 				break;
+			case SM2_P256:
+				/* p = 2^256 - 2^224 - 2^96 + 2^64 - 1. */
+				f[0] = -1;
+				f[1] = 64;
+				f[2] = -96;
+				f[3] = -224;
+				f[4] = 256;
+				fp_prime_set_pmers(f, 5);
+				break;
 			case SECG_256:
 				/* p = 2^256 - 2^32 - 2^9 - 2^8 - 2^7 - 2^6 - 2^4 - 1. */
 				f[0] = -1;
